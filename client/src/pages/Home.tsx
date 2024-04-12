@@ -1,7 +1,8 @@
 import axios from "axios";
 import Note from "../components/Note";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AppContext } from "../App";
 
 interface NoteProps {
   _id: string;
@@ -10,16 +11,22 @@ interface NoteProps {
 }
 
 const Home = () => {
+  const { setId, setInitialName, setInitialText } = useContext(AppContext);
+
   const [notes, setNotes] = useState<NoteProps[]>([]);
 
   useEffect(() => {
+    setId(null);
+    setInitialName("");
+    setInitialText("");
+
     const fetchNotes = async () => {
       const { data } = await axios.get("http://localhost:3000/api/v1/notes");
       setNotes(data.notes);
     };
 
     fetchNotes();
-  }, []);
+  }, [setId, setInitialName, setInitialText]);
 
   return (
     <main className="flex-col w-full h-screen justify-center bg-bg text-white font-mono">

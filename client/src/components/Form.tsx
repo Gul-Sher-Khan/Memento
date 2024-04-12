@@ -4,7 +4,14 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 
 const Form = () => {
-  const { initialName, initialText, id } = useContext(AppContext);
+  const {
+    initialName,
+    initialText,
+    id,
+    setId,
+    setInitialName,
+    setInitialText,
+  } = useContext(AppContext);
   const [name, setName] = useState(initialName || ""); // Use initialName as default name
   const [text, setText] = useState(initialText || ""); // Use initialText as default text
 
@@ -15,8 +22,7 @@ const Form = () => {
     e.preventDefault();
     try {
       if (id) {
-        console.log(id);
-        await axios.put(`http://localhost:3000/api/v1/notes/${id}`, {
+        await axios.patch(`http://localhost:3000/api/v1/notes/${id}`, {
           name,
           text,
         });
@@ -31,6 +37,13 @@ const Form = () => {
       console.error("Error:", error);
       // Handle error if needed
     }
+
+    // Reset form fields
+    setName("");
+    setText("");
+    setId(null);
+    setInitialName("");
+    setInitialText("");
   };
 
   return (
