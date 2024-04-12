@@ -14,7 +14,7 @@ app.use("/api/v1/notes", notes);
 
 const start = async () => {
   try {
-    await dbconnect(process.env.MONGO_URI);
+    await dbconnect(process.env.MONGO_URL);
     app.listen(3000, console.log("server is listening on port 3000..."));
   } catch (error) {
     console.log(error);

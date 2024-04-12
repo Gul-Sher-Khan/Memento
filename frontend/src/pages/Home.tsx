@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
 import Note from "../components/Note";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 interface NoteProps {
   _id: string;
@@ -28,7 +28,12 @@ const Home = () => {
       </section>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-10">
         {notes.map((note) => (
-          <Note id={note._id} name={note.name} text={note.text} />
+          <Note
+            key={note._id}
+            id={note._id}
+            name={note.name}
+            text={note.text}
+          />
         ))}
       </div>
       <Link to="/add">
